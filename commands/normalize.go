@@ -8,11 +8,11 @@ import (
 	"fmt"
 	"io"
 	"os"
-	"strconv"
 
 	"github.com/anthonynsimon/cconverter/client"
 	"github.com/anthonynsimon/cconverter/currency"
 	"github.com/google/subcommands"
+	"github.com/shopspring/decimal"
 )
 
 var (
@@ -34,7 +34,7 @@ func parseCsvRecord(record []string) (*csvRecord, error) {
 	result := &csvRecord{}
 	result.ID = record[0]
 
-	amount, err := strconv.ParseFloat(record[1], 64)
+	amount, err := decimal.NewFromString(record[1])
 	if err != nil {
 		return nil, ErrInvalidCSVFormat
 	}
@@ -53,7 +53,7 @@ func parseCsvRecord(record []string) (*csvRecord, error) {
 
 type csvRecord struct {
 	ID           string
-	Amount       float64
+	Amount       decimal.Decimal
 	CurrencyCode currency.Currency
 }
 
@@ -141,7 +141,7 @@ func (cmd *NormalizeCmd) Execute(ctx context.Context, f *flag.FlagSet, args ...i
 			return subcommands.ExitFailure
 		}
 
-		fmt.Printf("Converting %s %s to %s\n", strconv.FormatFloat(record.Amount, 'f', -1, 64), record.CurrencyCode, toCurrency)
+		fmt.Printf("Converting %s %s to %s\n", record.Amount.String(), record.CurrencyCode, toCurrency)
 
 		// TODO: batch operations to readuce API calls?
 		quote, err := apiClient.Convert(record.CurrencyCode, toCurrency, record.Amount)
@@ -150,7 +150,7 @@ func (cmd *NormalizeCmd) Execute(ctx context.Context, f *flag.FlagSet, args ...i
 			return subcommands.ExitFailure
 		}
 
-		conversionResult := strconv.FormatFloat(quote.ConversionResult, 'f', 4, 64)
+		conversionResult := quote.ConversionResult.String()
 
 		err = csvWriter.Write([]string{record.ID, conversionResult, string(toCurrency)})
 		if err != nil {

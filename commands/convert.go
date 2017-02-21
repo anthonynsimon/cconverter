@@ -4,11 +4,11 @@ import (
 	"context"
 	"flag"
 	"fmt"
-	"strconv"
 
 	"github.com/anthonynsimon/cconverter/client"
 	"github.com/anthonynsimon/cconverter/currency"
 	"github.com/google/subcommands"
+	"github.com/shopspring/decimal"
 )
 
 // ConvertCmd holds related data and methods for the Conversion operation.
@@ -60,8 +60,7 @@ func (cmd *ConvertCmd) Execute(ctx context.Context, f *flag.FlagSet, args ...int
 		f.Usage()
 		return subcommands.ExitFailure
 	}
-
-	amount, err := strconv.ParseFloat(cmd.amount, 64)
+	amount, err := decimal.NewFromString(cmd.amount)
 	if err != nil {
 		fmt.Printf(err.Error() + "\n\n")
 		f.Usage()
@@ -82,9 +81,9 @@ func (cmd *ConvertCmd) Execute(ctx context.Context, f *flag.FlagSet, args ...int
 	fmt.Println("--------------------------")
 	fmt.Printf("From Currency:\t%s\n", quote.FromCurrency)
 	fmt.Printf("To Currency:\t%s\n", quote.ToCurrency)
-	fmt.Printf("Amount:\t\t%s\n", strconv.FormatFloat(quote.AmountToConvert, 'f', -1, 64))
-	fmt.Printf("Exchange Rate:\t%s\n", strconv.FormatFloat(quote.ExchangeRate, 'f', -1, 64))
-	fmt.Printf("Result:\t\t%s\n", strconv.FormatFloat(quote.ConversionResult, 'f', -1, 64))
+	fmt.Printf("Amount:\t\t%s\n", quote.AmountToConvert.String())
+	fmt.Printf("Exchange Rate:\t%s\n", quote.ExchangeRate.String())
+	fmt.Printf("Result:\t\t%s\n", quote.ConversionResult.String())
 	fmt.Println("--------------------------")
 
 	return subcommands.ExitSuccess

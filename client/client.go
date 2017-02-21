@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/anthonynsimon/cconverter/currency"
+	"github.com/shopspring/decimal"
 )
 
 var (
@@ -17,7 +18,7 @@ const (
 	// RatesUri is the URI template to the rates endpoint
 	RatesUri = "/api/rates/%s"
 	// ConversionUri is the URI template to the convert endpoint
-	ConversionUri = "/api/convert?from=%s&to=%s&amount=%f"
+	ConversionUri = "/api/convert?from=%s&to=%s&amount=%s"
 )
 
 // APIClient holds all methods for interacting with the cconverter API server
@@ -42,6 +43,6 @@ func (client *APIClient) getRatesURL(currency currency.Currency) string {
 	return fmt.Sprintf(client.apiHost+RatesUri, currency)
 }
 
-func (client *APIClient) getConversionURL(from, to currency.Currency, value float64) string {
-	return fmt.Sprintf(client.apiHost+ConversionUri, from, to, value)
+func (client *APIClient) getConversionURL(from, to currency.Currency, value decimal.Decimal) string {
+	return fmt.Sprintf(client.apiHost+ConversionUri, from, to, value.String())
 }
