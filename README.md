@@ -1,4 +1,4 @@
-# cconverter-api
+# cconverter
 [![Build Status](https://travis-ci.org/anthonynsimon/cconverter.svg?branch=master)](https://travis-ci.org/anthonynsimon/cconverter) 
 
 CLI for currency exchange rate querying and conversion.
