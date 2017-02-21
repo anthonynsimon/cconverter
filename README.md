@@ -3,6 +3,13 @@
 
 CLI for currency exchange rate querying and conversion.
 
+## TODO
+
+- Add tests when practical.
+- Cleanup boilerplate code for validating inputs.
+- Add conversion batching support.
+- (Conversion could be done locally with updated exchange rates)
+
 ## Setup
 
 Simply use `go get` on the repo to download and build from sources for your platform:
