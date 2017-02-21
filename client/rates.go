@@ -1,34 +1,27 @@
 package client
 
-import "fmt"
+import (
+	"fmt"
 
-func (client *APIClient) getRatesURL(currency string) string {
+	"github.com/anthonynsimon/xeclient/currency"
+)
+
+func (client *APIClient) getRatesURL(currency currency.Currency) string {
 	return fmt.Sprintf(client.apiHost+RatesUri, currency)
 }
 
-func (client *APIClient) getConversionURL(from, to, value string) string {
+func (client *APIClient) getConversionURL(from, to currency.Currency, value string) string {
 	return fmt.Sprintf(client.apiHost+ConversionUri, from, to, value)
 }
 
-func (client *APIClient) GetRates(currency string) (*ExchangeRates, error) {
+func (client *APIClient) GetRates(currency currency.Currency) (*ExchangeRates, error) {
 	response, err := client.httpClient.Get(client.getRatesURL(currency))
 	if err != nil {
 		return nil, err
 	}
 	defer response.Body.Close()
-
-	payload := apiResponseRates{}
-	err = decodePayload(response.Body, &payload)
-	if err != nil {
-		return nil, err
-	}
-
-	err = validate(&payload)
-	if err != nil {
-		return nil, err
-	}
-
-	rates, err := payload.unfold()
+	rates := &ExchangeRates{}
+	err = decodePayload(response.Body, rates)
 	if err != nil {
 		return nil, err
 	}
