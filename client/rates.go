@@ -9,6 +9,10 @@ func (client *APIClient) GetRates(currency currency.Currency) (*ExchangeRates, e
 	}
 	defer response.Body.Close()
 
+	if !isResponseStatusOK(response) {
+		return nil, ErrResponseNotOk
+	}
+
 	rates := &ExchangeRates{}
 	err = decodePayload(response.Body, rates)
 	if err != nil {

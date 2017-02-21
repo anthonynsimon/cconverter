@@ -10,6 +10,10 @@ func (client *APIClient) Convert(from, to currency.Currency, amount float64) (*E
 	}
 	defer response.Body.Close()
 
+	if !isResponseStatusOK(response) {
+		return nil, ErrResponseNotOk
+	}
+
 	quote := &ExchangeQuote{}
 	err = decodePayload(response.Body, quote)
 	if err != nil {
