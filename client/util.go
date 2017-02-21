@@ -6,6 +6,7 @@ import (
 )
 
 var (
+	// ErrResponseNotOk is returned when an API response should not be considered valid.
 	ErrResponseNotOk = fmt.Errorf("API response not OK")
 )
 

@@ -16,9 +16,11 @@ import (
 )
 
 var (
+	// ErrInvalidCSVFormat is returned when an unexpected CSV format was encountered.
 	ErrInvalidCSVFormat = errors.New("invalid csv record format. expected '[id], [amount], [currency code]'")
 )
 
+// NormalizeCmd holds all methods and data related to the Normalize CSV operation.
 type NormalizeCmd struct {
 	toCurrency string
 	csvFile    string
@@ -76,6 +78,7 @@ func (cmd *NormalizeCmd) SetFlags(f *flag.FlagSet) {
 }
 
 func (cmd *NormalizeCmd) Execute(ctx context.Context, f *flag.FlagSet, args ...interface{}) subcommands.ExitStatus {
+	// Check for missing inputs
 	if cmd.toCurrency == "" {
 		fmt.Printf("please specify a target currency\n\n")
 		f.Usage()
@@ -86,6 +89,8 @@ func (cmd *NormalizeCmd) Execute(ctx context.Context, f *flag.FlagSet, args ...i
 		f.Usage()
 		return subcommands.ExitFailure
 	}
+
+	// Parse inputs to validate them
 	toCurrency, err := currency.Parse(cmd.toCurrency)
 	if err != nil {
 		fmt.Printf("bad target currency: %s\n\n", err)
@@ -98,6 +103,7 @@ func (cmd *NormalizeCmd) Execute(ctx context.Context, f *flag.FlagSet, args ...i
 		return subcommands.ExitFailure
 	}
 
+	// Init file IO
 	fileIn, err := os.Open(cmd.csvFile)
 	if err != nil {
 		fmt.Println(err)
@@ -115,7 +121,8 @@ func (cmd *NormalizeCmd) Execute(ctx context.Context, f *flag.FlagSet, args ...i
 	csvWriter := csv.NewWriter(fileOut)
 	csvReader := csv.NewReader(fileIn)
 
-	apiHost := extractApiHost(ctx)
+	// Init client
+	apiHost := extractAPIHost(ctx)
 	apiClient := client.NewClient(apiHost)
 
 	for {
@@ -136,6 +143,7 @@ func (cmd *NormalizeCmd) Execute(ctx context.Context, f *flag.FlagSet, args ...i
 
 		fmt.Printf("Converting %s %s to %s\n", strconv.FormatFloat(record.Amount, 'f', -1, 64), record.CurrencyCode, toCurrency)
 
+		// TODO: batch operations to readuce API calls?
 		quote, err := apiClient.Convert(record.CurrencyCode, toCurrency, record.Amount)
 		if err != nil {
 			fmt.Println(err)
@@ -151,7 +159,7 @@ func (cmd *NormalizeCmd) Execute(ctx context.Context, f *flag.FlagSet, args ...i
 		}
 
 		csvWriter.Flush()
-
 	}
+
 	return subcommands.ExitSuccess
 }

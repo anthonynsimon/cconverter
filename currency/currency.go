@@ -5,6 +5,7 @@ import (
 	"strings"
 )
 
+// Currency is a helper data type for validating inputs
 type Currency string
 
 const (
@@ -42,6 +43,7 @@ const (
 	EUR Currency = "EUR"
 )
 
+// TODO: make this nicer!
 var knownCurrencies = []Currency{
 	"AUD",
 	"BGN",
@@ -77,6 +79,7 @@ var knownCurrencies = []Currency{
 	"EUR",
 }
 
+// Parse returns a Currency data type after parsing, it must be valid (length == 3 and contained in known list)
 func Parse(str string) (Currency, error) {
 	if len(str) != 3 {
 		return "", errors.New("invalid currency code length")

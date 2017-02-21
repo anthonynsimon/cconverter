@@ -11,6 +11,7 @@ import (
 	"github.com/google/subcommands"
 )
 
+// RatesCmd holds all methods and data for executing GetExchangeRates operation
 type RatesCmd struct {
 	currencyCode string
 }
@@ -34,6 +35,14 @@ func (cmd *RatesCmd) SetFlags(f *flag.FlagSet) {
 }
 
 func (cmd *RatesCmd) Execute(ctx context.Context, f *flag.FlagSet, args ...interface{}) subcommands.ExitStatus {
+	// Check for missing inputs
+	if cmd.currencyCode == "" {
+		fmt.Printf("please provide a currency\n\n")
+		f.Usage()
+		return subcommands.ExitFailure
+	}
+
+	// Parse inputs to validate them
 	currencyCode, err := currency.Parse(cmd.currencyCode)
 	if err != nil {
 		fmt.Println(err)
@@ -41,9 +50,11 @@ func (cmd *RatesCmd) Execute(ctx context.Context, f *flag.FlagSet, args ...inter
 		return subcommands.ExitFailure
 	}
 
-	apiHost := extractApiHost(ctx)
+	// Init client
+	apiHost := extractAPIHost(ctx)
 	apiClient := client.NewClient(apiHost)
 
+	// Fetch rates
 	rates, err := apiClient.GetRates(currencyCode)
 	if err != nil {
 		fmt.Println(err)

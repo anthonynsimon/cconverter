@@ -2,6 +2,8 @@ package client
 
 import "github.com/anthonynsimon/cconverter/currency"
 
+// GetRates returns an ExchangeRates struct holding the resulting data from the exchange rate query operation.
+// Parameter 'currency' corresponds to the currency to be used as a base for the rates.
 func (client *APIClient) GetRates(currency currency.Currency) (*ExchangeRates, error) {
 	response, err := client.httpClient.Get(client.getRatesURL(currency))
 	if err != nil {

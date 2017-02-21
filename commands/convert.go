@@ -11,6 +11,7 @@ import (
 	"github.com/google/subcommands"
 )
 
+// ConvertCmd holds related data and methods for the Conversion operation.
 type ConvertCmd struct {
 	from   string
 	to     string
@@ -38,11 +39,15 @@ func (cmd *ConvertCmd) SetFlags(f *flag.FlagSet) {
 }
 
 func (cmd *ConvertCmd) Execute(ctx context.Context, f *flag.FlagSet, args ...interface{}) subcommands.ExitStatus {
+	// TODO: tidy this up
+	// Validate inputs
 	if (cmd.to == "") || (cmd.from == "") || (cmd.amount == "") {
 		fmt.Printf("please specify the 'from' and 'to' currencies, as well as the amount to be converted\n\n")
 		f.Usage()
 		return subcommands.ExitFailure
 	}
+
+	// Parse provided inputs and validate them
 	fromCurrency, err := currency.Parse(cmd.from)
 	if err != nil {
 		fmt.Printf(err.Error() + "\n\n")
@@ -63,9 +68,11 @@ func (cmd *ConvertCmd) Execute(ctx context.Context, f *flag.FlagSet, args ...int
 		return subcommands.ExitFailure
 	}
 
-	apiHost := extractApiHost(ctx)
+	// Initialize client
+	apiHost := extractAPIHost(ctx)
 	apiClient := client.NewClient(apiHost)
 
+	// Convert to target currency
 	quote, err := apiClient.Convert(fromCurrency, toCurrency, amount)
 	if err != nil {
 		fmt.Println(err)

@@ -14,6 +14,7 @@ var (
 )
 
 func main() {
+	// Register all commands
 	subcommands.Register(&commands.NormalizeCmd{}, "")
 	subcommands.Register(&commands.ConvertCmd{}, "")
 	subcommands.Register(&commands.RatesCmd{}, "")
@@ -21,6 +22,7 @@ func main() {
 	subcommands.Register(subcommands.FlagsCommand(), "")
 	subcommands.Register(subcommands.CommandsCommand(), "")
 
+	// Init subcommands and pass global flags via context
 	flag.Parse()
 	ctx := context.WithValue(context.Background(), "apiHost", *apiHost)
 	os.Exit(int(subcommands.Execute(ctx)))

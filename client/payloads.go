@@ -5,19 +5,15 @@ import (
 	"io"
 )
 
-// TODO: set accept headers when making requests to the API
-// var (
-// 	jsonContentType = "application/json; charset=utf-8"
-// )
-
-// TODO: use a type better suited for financial numbers
-// Pass strings to API? There's no need to manipulate the numbers
-// in the CLI besides validation
+// ExchangeRates corresponds to the payload returned when querying exchange rates
+// for a base currency.
 type ExchangeRates struct {
 	Rates map[string]float64 `json:"rates,omitempty"`
 	Base  string             `json:"base,omitempty"`
 }
 
+// ExchangeQuote corresponds to the payload returned when converting an amount
+// between currencies.
 type ExchangeQuote struct {
 	FromCurrency     string  `json:"fromCurrency,omitempty"`
 	ToCurrency       string  `json:"toCurrency,omitempty"`
