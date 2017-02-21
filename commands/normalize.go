@@ -125,6 +125,23 @@ func (cmd *NormalizeCmd) Execute(ctx context.Context, f *flag.FlagSet, args ...i
 	apiHost := extractAPIHost(ctx)
 	apiClient := client.NewClient(apiHost)
 
+	// Read first line and flush (column names)
+	columnNames, err := csvReader.Read()
+	if err == io.EOF {
+		fmt.Println("csv file has no rows except column names")
+		return subcommands.ExitFailure
+	}
+	if err != nil {
+		fmt.Println(err)
+		return subcommands.ExitFailure
+	}
+	err = csvWriter.Write(columnNames)
+	if err != nil {
+		fmt.Println(err)
+		return subcommands.ExitFailure
+	}
+	csvWriter.Flush()
+
 	for {
 		rawRecord, err := csvReader.Read()
 		if err == io.EOF {
