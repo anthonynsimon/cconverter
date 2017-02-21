@@ -76,13 +76,20 @@ func (cmd *NormalizeCmd) SetFlags(f *flag.FlagSet) {
 }
 
 func (cmd *NormalizeCmd) Execute(ctx context.Context, f *flag.FlagSet, args ...interface{}) subcommands.ExitStatus {
+	if cmd.toCurrency == "" {
+		fmt.Printf("please specify a target currency\n\n")
+		f.Usage()
+		return subcommands.ExitFailure
+	}
 	toCurrency, err := currency.Parse(cmd.toCurrency)
 	if err != nil {
-		fmt.Printf("bad target currency: %s\n", err)
+		fmt.Printf("bad target currency: %s\n\n", err)
+		f.Usage()
 		return subcommands.ExitFailure
 	}
 	if cmd.csvFile == "" {
-		fmt.Println("csv file path cannot be empty")
+		fmt.Printf("csv file path cannot be empty\n\n")
+		f.Usage()
 		return subcommands.ExitFailure
 	}
 

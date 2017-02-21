@@ -37,6 +37,7 @@ func (cmd *RatesCmd) Execute(ctx context.Context, f *flag.FlagSet, args ...inter
 	currencyCode, err := currency.Parse(cmd.currencyCode)
 	if err != nil {
 		fmt.Println(err)
+		f.Usage()
 		return subcommands.ExitFailure
 	}
 

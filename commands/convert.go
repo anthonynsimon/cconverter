@@ -40,18 +40,21 @@ func (cmd *ConvertCmd) SetFlags(f *flag.FlagSet) {
 func (cmd *ConvertCmd) Execute(ctx context.Context, f *flag.FlagSet, args ...interface{}) subcommands.ExitStatus {
 	fromCurrency, err := currency.Parse(cmd.from)
 	if err != nil {
-		fmt.Println(err)
+		fmt.Printf(err.Error() + "\n\n")
+		f.Usage()
 		return subcommands.ExitFailure
 	}
 	toCurrency, err := currency.Parse(cmd.to)
 	if err != nil {
-		fmt.Println(err)
+		fmt.Printf(err.Error() + "\n\n")
+		f.Usage()
 		return subcommands.ExitFailure
 	}
 
 	amount, err := strconv.ParseFloat(cmd.amount, 64)
 	if err != nil {
-		fmt.Println(err)
+		fmt.Printf(err.Error() + "\n\n")
+		f.Usage()
 		return subcommands.ExitFailure
 	}
 
