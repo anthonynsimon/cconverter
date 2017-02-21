@@ -1,8 +1,11 @@
 package client
 
 import (
+	"fmt"
 	"net/http"
 	"time"
+
+	"github.com/anthonynsimon/xeclient/currency"
 )
 
 var (
@@ -11,7 +14,7 @@ var (
 
 const (
 	RatesUri      = "/api/rates/%s"
-	ConversionUri = "/api/convert?from=%s&to=%s&amount=%s"
+	ConversionUri = "/api/convert?from=%s&to=%s&amount=%f"
 )
 
 type APIClient struct {
@@ -28,4 +31,12 @@ func NewClient(apiHost string) *APIClient {
 		httpClient: &client,
 		apiHost:    apiHost,
 	}
+}
+
+func (client *APIClient) getRatesURL(currency currency.Currency) string {
+	return fmt.Sprintf(client.apiHost+RatesUri, currency)
+}
+
+func (client *APIClient) getConversionURL(from, to currency.Currency, value float64) string {
+	return fmt.Sprintf(client.apiHost+ConversionUri, from, to, value)
 }
