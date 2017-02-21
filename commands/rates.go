@@ -33,9 +33,6 @@ func (cmd *RatesCmd) SetFlags(f *flag.FlagSet) {
 }
 
 func (cmd *RatesCmd) Execute(ctx context.Context, f *flag.FlagSet, args ...interface{}) subcommands.ExitStatus {
-	// TODO: validate inputs
-	// currency := cmd.currency
-
 	currencyCode, err := currency.Parse(cmd.currencyCode)
 	if err != nil {
 		fmt.Println(err)
@@ -50,7 +47,13 @@ func (cmd *RatesCmd) Execute(ctx context.Context, f *flag.FlagSet, args ...inter
 		fmt.Println(err)
 		return subcommands.ExitFailure
 	}
-	fmt.Println(rates)
+
+	fmt.Println("--------------------------")
+	fmt.Printf("Base Currency:\t%s\n\n", rates.Base)
+	for code, rate := range rates.Rates {
+		fmt.Printf("%s:\t\t%f\n", code, rate)
+	}
+	fmt.Println("--------------------------")
 
 	return subcommands.ExitSuccess
 }
