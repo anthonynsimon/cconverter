@@ -109,12 +109,12 @@ Result:         94.904
 To query rates for any supported base currency:
 
 ```
-$ cconverter rates -currencycode=CURRENCY
+$ cconverter rates -currency=CURRENCY
 ```
 Example:
 
 ```
-$ cconverter rates -currencycode=usd
+$ cconverter rates -currency=usd
 --------------------------
 Base Currency:  USD
 
