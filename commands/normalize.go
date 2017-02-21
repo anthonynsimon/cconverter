@@ -124,14 +124,13 @@ func (cmd *NormalizeCmd) Execute(ctx context.Context, f *flag.FlagSet, args ...i
 
 		fmt.Printf("Converting %f %s to %s\n", record.Amount, record.CurrencyCode, toCurrency)
 
-		// TODO: handle non-200 responses
 		quote, err := apiClient.Convert(record.CurrencyCode, toCurrency, record.Amount)
 		if err != nil {
 			fmt.Println(err)
 			return subcommands.ExitFailure
 		}
 
-		conversionResult := fmt.Sprintf("%f", quote.ConversionResult)
+		conversionResult := strconv.FormatFloat(quote.ConversionResult, 'f', 4, 64)
 
 		err = csvWriter.Write([]string{record.ID, conversionResult, string(toCurrency)})
 		if err != nil {
