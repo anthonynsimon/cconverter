@@ -47,6 +47,9 @@ something like this:
 
 ```
 item,price,currency
+B,9.99,USD
+C,0.99,GBP
+A,10.99,EUR
 ```
 
 You can simply use the following command:
@@ -70,25 +73,21 @@ Example:
 
 ```
 $ cat myfile.csv
-A,500,EUR
-B,750.5576,GBP
-C,10.0,JPY
-D,568.621,EUR
-E,1,USD
+item,price,currency
+B,9.99,USD
+C,0.99,GBP
+A,10.99,EUR
 
-$ cconverter normalize -csvfile=./myfile.csv -to=USD -out=./normalized.csv
-Converting 500.0 EUR to USD
-Converting 750.55760 GBP to USD
-Converting 10.00 JPY to USD
-Converting 568.621 EUR to USD
-Converting 1.0 USD to USD
+$ cconverter normalize -csvfile=./myfile.csv -to=gbp -out=./normalized.csv
+Converting 9.99 USD to GBP
+Converting 0.99 GBP to GBP
+Converting 10.99 EUR to GBP
 
 $ cat normalized.csv
-A,526.8500,USD
-B,931.9674,USD
-C,0.0880,USD
-D,599.1559,USD
-E,1.0000,USD
+item,price,currency
+B,8.0454,GBP
+C,0.99,GBP
+A,9.3261,GBP
 ```
 
 ### Convert between currencies

@@ -1,5 +1,4 @@
-A,1.0,EUR
-B,1.0,GBP
-C,1.0,JPY
-D,1.0,EUR
-E,1.0,USD
+item,price,currency
+B,9.99,USD
+C,0.99,GBP
+A,10.99,EUR
