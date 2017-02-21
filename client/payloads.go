@@ -11,6 +11,8 @@ import (
 // )
 
 // TODO: use a type better suited for financial numbers
+// Pass strings to API? There's no need to manipulate the numbers
+// in the CLI besides validation
 type ExchangeRates struct {
 	Rates map[string]float64 `json:"rates,omitempty"`
 	Base  string             `json:"base,omitempty"`
