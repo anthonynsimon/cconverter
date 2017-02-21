@@ -60,7 +60,7 @@ func (*NormalizeCmd) Name() string {
 }
 
 func (*NormalizeCmd) Synopsis() string {
-	return "Normalizes a CSV file so that all values are in the same currency"
+	return "normalizes a CSV file so that all values are in the same currency"
 }
 
 func (*NormalizeCmd) Usage() string {

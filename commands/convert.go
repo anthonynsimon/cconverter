@@ -22,7 +22,7 @@ func (*ConvertCmd) Name() string {
 }
 
 func (*ConvertCmd) Synopsis() string {
-	return "Converts an 'amount' from the provided 'from' currency to the 'to' currency."
+	return "converts an amount from one currency to another"
 }
 
 func (*ConvertCmd) Usage() string {

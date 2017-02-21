@@ -20,17 +20,17 @@ func (*RatesCmd) Name() string {
 }
 
 func (*RatesCmd) Synopsis() string {
-	return "Gets the latest rates from a provided currency."
+	return "fetches the latest rates for the provided currency"
 }
 
 func (*RatesCmd) Usage() string {
 	return `rates [-currency]:
-	For ex.: -currencycode=EUR
+	For ex.: -currency=EUR
 `
 }
 
 func (cmd *RatesCmd) SetFlags(f *flag.FlagSet) {
-	f.StringVar(&cmd.currencyCode, "currencycode", "", "the currency code to get the rates from")
+	f.StringVar(&cmd.currencyCode, "currency", "", "the currency code for the rates to be fetched")
 }
 
 func (cmd *RatesCmd) Execute(ctx context.Context, f *flag.FlagSet, args ...interface{}) subcommands.ExitStatus {
