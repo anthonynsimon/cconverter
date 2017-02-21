@@ -122,7 +122,7 @@ func (cmd *NormalizeCmd) Execute(ctx context.Context, f *flag.FlagSet, args ...i
 			return subcommands.ExitFailure
 		}
 
-		fmt.Printf("Converting %f %s to %s\n", record.Amount, record.CurrencyCode, toCurrency)
+		fmt.Printf("Converting %s %s to %s\n", strconv.FormatFloat(record.Amount, 'f', -1, 64), record.CurrencyCode, toCurrency)
 
 		quote, err := apiClient.Convert(record.CurrencyCode, toCurrency, record.Amount)
 		if err != nil {
