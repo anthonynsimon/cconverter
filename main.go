@@ -21,6 +21,6 @@ func main() {
 	subcommands.Register(&commands.RatesCmd{}, "")
 
 	flag.Parse()
-	ctx := context.Background()
+	ctx := context.WithValue(context.Background(), "apiHost", *apiHost)
 	os.Exit(int(subcommands.Execute(ctx)))
 }
