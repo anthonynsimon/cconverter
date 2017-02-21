@@ -1,0 +1,13 @@
+{
+	"comment": "",
+	"ignore": "",
+	"package": [
+		{
+			"checksumSHA1": "56XwWr5SakVhOmbyS1FAD+NZWbA=",
+			"path": "github.com/google/subcommands",
+			"revision": "43f65adde14103c0e32a37df5a4abfe7b19c7251",
+			"revisionTime": "2017-02-03T18:40:29Z"
+		}
+	],
+	"rootPath": "github.com/anthonynsimon/cconverter"
+}
