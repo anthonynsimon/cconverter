@@ -1,6 +1,6 @@
 package client
 
-import "github.com/anthonynsimon/xeclient/currency"
+import "github.com/anthonynsimon/cconverter/currency"
 
 func (client *APIClient) GetRates(currency currency.Currency) (*ExchangeRates, error) {
 	response, err := client.httpClient.Get(client.getRatesURL(currency))

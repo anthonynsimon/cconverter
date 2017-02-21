@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/anthonynsimon/xeclient/currency"
+	"github.com/anthonynsimon/cconverter/currency"
 )
 
 var (

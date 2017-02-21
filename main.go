@@ -5,7 +5,7 @@ import (
 	"flag"
 	"os"
 
-	"github.com/anthonynsimon/xeclient/commands"
+	"github.com/anthonynsimon/cconverter/commands"
 	"github.com/google/subcommands"
 )
 

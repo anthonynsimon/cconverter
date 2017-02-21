@@ -1,6 +1,6 @@
 package client
 
-import "github.com/anthonynsimon/xeclient/currency"
+import "github.com/anthonynsimon/cconverter/currency"
 
 func (client *APIClient) Convert(from, to currency.Currency, amount float64) (*ExchangeQuote, error) {
 	convertUrl := client.getConversionURL(from, to, amount)

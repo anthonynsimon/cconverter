@@ -5,8 +5,8 @@ import (
 	"flag"
 	"fmt"
 
-	"github.com/anthonynsimon/xeclient/client"
-	"github.com/anthonynsimon/xeclient/currency"
+	"github.com/anthonynsimon/cconverter/client"
+	"github.com/anthonynsimon/cconverter/currency"
 	"github.com/google/subcommands"
 )
 
