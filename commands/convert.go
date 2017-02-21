@@ -67,9 +67,9 @@ func (cmd *ConvertCmd) Execute(ctx context.Context, f *flag.FlagSet, args ...int
 	fmt.Println("--------------------------")
 	fmt.Printf("From Currency:\t%s\n", quote.FromCurrency)
 	fmt.Printf("To Currency:\t%s\n", quote.ToCurrency)
-	fmt.Printf("Amount:\t\t%f\n", quote.AmountToConvert)
-	fmt.Printf("Exchange Rate:\t%f\n", quote.ExchangeRate)
-	fmt.Printf("Result:\t\t%f\n", quote.ConversionResult)
+	fmt.Printf("Amount:\t\t%s\n", strconv.FormatFloat(quote.AmountToConvert, 'f', -1, 64))
+	fmt.Printf("Exchange Rate:\t%s\n", strconv.FormatFloat(quote.ExchangeRate, 'f', -1, 64))
+	fmt.Printf("Result:\t\t%s\n", strconv.FormatFloat(quote.ConversionResult, 'f', -1, 64))
 	fmt.Println("--------------------------")
 
 	return subcommands.ExitSuccess

@@ -4,6 +4,7 @@ import (
 	"context"
 	"flag"
 	"fmt"
+	"strconv"
 
 	"github.com/anthonynsimon/cconverter/client"
 	"github.com/anthonynsimon/cconverter/currency"
@@ -51,7 +52,7 @@ func (cmd *RatesCmd) Execute(ctx context.Context, f *flag.FlagSet, args ...inter
 	fmt.Println("--------------------------")
 	fmt.Printf("Base Currency:\t%s\n\n", rates.Base)
 	for code, rate := range rates.Rates {
-		fmt.Printf("%s:\t\t%f\n", code, rate)
+		fmt.Printf("%s:\t\t%s\n", code, strconv.FormatFloat(rate, 'f', -1, 64))
 	}
 	fmt.Println("--------------------------")
 
