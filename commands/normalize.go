@@ -81,6 +81,11 @@ func (cmd *NormalizeCmd) Execute(ctx context.Context, f *flag.FlagSet, args ...i
 		f.Usage()
 		return subcommands.ExitFailure
 	}
+	if cmd.csvFile == "" {
+		fmt.Printf("please specify the path to the input CSV file\n\n")
+		f.Usage()
+		return subcommands.ExitFailure
+	}
 	toCurrency, err := currency.Parse(cmd.toCurrency)
 	if err != nil {
 		fmt.Printf("bad target currency: %s\n\n", err)

@@ -38,6 +38,11 @@ func (cmd *ConvertCmd) SetFlags(f *flag.FlagSet) {
 }
 
 func (cmd *ConvertCmd) Execute(ctx context.Context, f *flag.FlagSet, args ...interface{}) subcommands.ExitStatus {
+	if (cmd.to == "") || (cmd.from == "") || (cmd.amount == "") {
+		fmt.Printf("please specify the 'from' and 'to' currencies, as well as the amount to be converted\n\n")
+		f.Usage()
+		return subcommands.ExitFailure
+	}
 	fromCurrency, err := currency.Parse(cmd.from)
 	if err != nil {
 		fmt.Printf(err.Error() + "\n\n")
