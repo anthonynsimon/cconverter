@@ -3,12 +3,16 @@
 
 CLI for currency exchange rate querying and conversion.
 
+Demo (assumes API server running on localhost:8080)
+
+[![asciicast](https://asciinema.org/a/b6dyhdz1upi5o023weuxtqg2y.png)](https://asciinema.org/a/b6dyhdz1upi5o023weuxtqg2y)
+
 ## TODO
 
 - Add tests when practical.
 - Cleanup boilerplate code for validating inputs.
 - Add conversion batching support.
-- (Conversion could be done locally with updated exchange rates)
+- Handle CSV reading concurrently with API requests via goroutines.
 
 ## Setup
 
