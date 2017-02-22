@@ -3,7 +3,7 @@
 
 CLI for currency exchange rate querying and conversion.
 
-Demo (assumes API server running on localhost:8080)
+Demo (assumes API server running on localhost:8080, for other hosts use -apiHost=your_host flag)
 
 [![asciicast](https://asciinema.org/a/b6dyhdz1upi5o023weuxtqg2y.png)](https://asciinema.org/a/b6dyhdz1upi5o023weuxtqg2y)
 
